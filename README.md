@@ -1,7 +1,7 @@
 rtcampTwitterChallange
 ======================
 
-# Readme.
+# Readme
 -----------------------------------------------------------------------------------------
 Twitter Timeline Challenge is an assignment developed for rtCamp Solutions Pvt. Ltd.
 Details:
@@ -18,13 +18,9 @@ Part-2: Followers Timeline:
    take any 10 random followers).
 2. When user will click on a follower name, 10 tweets from that follower's user-timeline
    will be displayed in same jQuery-slider, without page refresh (use AJAX).
-
 -----------------------------------------------------------------------------------------
 For this some libraries used are:
 #1. Twitter OAuth library
 
 -----> Thanks to Google ;)
 
-
------------------------------------------------------------------------------------------
-rtCamp is a registered trademark of rtCamp Solutions Pvt. Ltd.
