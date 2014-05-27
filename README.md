@@ -1,8 +1,6 @@
 rtcampTwitterChallange
 ======================
 
-# Readme
------------------------------------------------------------------------------------------
 Twitter Timeline Challenge is an assignment developed for rtCamp Solutions Pvt. Ltd.
 Details:
 
