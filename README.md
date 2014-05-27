@@ -19,7 +19,7 @@ Part-2: Followers Timeline:
 2. When user will click on a follower name, 10 tweets from that follower's user-timeline
    will be displayed in same jQuery-slider, without page refresh (use AJAX).
 -----------------------------------------------------------------------------------------
-For this some libraries used are:
+For this library used is:
 #1. Twitter OAuth library
 
 -----> Thanks to Google ;)
