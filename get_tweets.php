@@ -4,7 +4,7 @@ include('config.php');
 $screen_name = $_POST['name'];
 $connection = new TwitterOAuth($CONSUMER_KEY, $CONSUMER_SECRET);
 $twitterData = $connection->get('https://api.twitter.com/1.1/statuses/user_timeline.json?screen_name='.$screen_name.'&count=10');    
-
+    
     foreach($twitterData AS $single_tweet){
         $tweet = $single_tweet->text;
         $name = $single_tweet->user->name;
@@ -16,6 +16,6 @@ $twitterData = $connection->get('https://api.twitter.com/1.1/statuses/user_timel
         $html = $html. "<li class='tList'><strong>".$name." @ ".$user_name."</strong><br>".$tweet."<br>".$creation_time."</li>"; //forming html for the list of tweets
     }
 
-    echo $html;
+   echo $html;
 
 ?>

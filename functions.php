@@ -20,15 +20,43 @@
         return $html;
      }
 
-     function get_MyFollowers($followers) {
+     function get_myTenFollowers($followers) {
+        $i=1;
+     	foreach ($followers as $key=>$single_followers) {
 
-     	foreach ($followers as $key=>$single_follower) {
-	   	   
-	      foreach ($single_follower as $inkey=>$single_followers) {
-	      	
-	      	$myFollowers[$single_followers->screen_name] = $single_followers->name;
+	   	   foreach ($single_followers as $inkey=>$single_follower) {
+		      	if($i <= 10) {
+		      		if($inkey == "screen_name")
+		         	$screen_name = $single_follower;
+		            if($inkey == "name")
+		         	$name = $single_follower;
+	            
+		        }
+	        }
+		    if($i <= 10){
+		    	$myFollowers[$screen_name] = $name;
+		    	$i++;
+
+		    }
 	       
+	    }
+	    return $myFollowers;
+     }
+
+     function get_myAllFollowers($followers) {
+
+     	foreach ($followers as $key=>$single_followers) {
+	   	   
+	      foreach ($single_followers as $inkey=>$single_follower) {
+	      	
+	      	    if($inkey == "screen_name")
+	         	$screen_name = $single_follower;
+	            if($inkey == "name")
+	         	$name = $single_follower;
+
 	       }
+
+	       $myFollowers[$screen_name] = $name;
 	    }
 	    return $myFollowers;
      }

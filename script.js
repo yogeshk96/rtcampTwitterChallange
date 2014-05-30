@@ -43,7 +43,7 @@ jQuery(document).ready(function ($) {
         moveRight();
     });
 
-
+    //search post when user starts typing
     $('#searchTerm').keyup(function(){
         var term = $('#searchTerm').val();
         $.post('search.php', {term:term}, function(data){
@@ -54,7 +54,7 @@ jQuery(document).ready(function ($) {
     $('.fList').each(function(){
 
         $('.container').on('click' , '.fList', function(){
-            var name=$(this).html();
+            var name=$(this).find('.fListHidden').html();
             $.ajax({
             type: 'POST',
             url: 'get_tweets.php',
@@ -68,5 +68,7 @@ jQuery(document).ready(function ($) {
         });
 
     });
+
+        
 
 });    

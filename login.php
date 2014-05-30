@@ -27,7 +27,7 @@ include('functions.php');
 		<!--Our css file-->
 		<link rel='stylesheet' href='style.css'>
         <!--end: Our css file-->
-		<link rel="shortcut icon" href="favicon.ico" />
+		<link rel="shortcut icon" href="#" />
 	</head>
 <body>
 	<div class="main-container">
@@ -74,10 +74,14 @@ include('functions.php');
 		</div>
 		<!-- end: HEADER -->
 		<!-- start: PAGE -->
-		<?php if(isset($_SESSION['name']) && isset($_SESSION['twitter_id'])) //check whether user already logged in with twitter
+		<?php if(isset($_SESSION['name']) && isset($_SESSION['screen_name'])) //check whether user already logged in with twitter
         { 
         	$recent_tweets = $_SESSION['twitter_t'];
-            $followers = $_SESSION['twitter_follower'];
+            $allFollowers = $_SESSION['all_follower'];
+            
+            $allTweets = json_encode($_SESSION['allTweets']);
+
+            
         ?>
 		<div class="main">
 			<div class="container" id="container">
@@ -89,7 +93,7 @@ include('functions.php');
 					<div class="col-md-4">
 					</div>
 					<div class="col-md-4">
-					    <h3 style="text-align:center;">Your Timeline Latest Tweets</h3>
+					    <h3 style="text-align:center;">Your Timeline Latest Tweets<?php echo ""; ?></h3>
 						<div id='slider'>
 						     <a href='#' class='control_next'>>></a>
 						     <a href='#' class='control_prev'><</a>
@@ -106,24 +110,41 @@ include('functions.php');
 								 <table class="table table-hover" id="sample-table-1">
 									 <tbody>
 										 <?php 
-										 $myFollowers = get_MyFollowers($followers);
+
+										 //getting the list of 10 followers to show on the fron box
+										 $myFollowers = get_myTenFollowers($allFollowers);
+
 										 foreach ($myFollowers as $key=>$value) { ?>
 										 	
-										 	<tr><td class='fList'><?php echo $key; ?></td></tr>
+										 	<tr class='fList'><td class='fListInner'><?php echo $value; ?><div class="fListHidden" style="display:none;"><?php echo $key; ?></div></td></tr>
 										 <?php } ?>
 									 </tbody>
 								 </table>
 								 <?php
-								 $myFollowJson = json_encode($myFollowers);
+								 //getting the list of all followers
+								 $myAllFollowers = get_myAllFollowers($allFollowers);
+								 $myFollowJson = json_encode($myAllFollowers);
+
 			                     //setting session to call back the array in action page
 			                     set_session($myFollowJson); 
+
+                                 //creating the json file on server so that user can download it
+                                 if (!file_exists('files')) {
+		                            mkdir('files', 0775);
+	                             } 
+			                     $the_file_html = fopen("files/".$_SESSION['screen_name'].".json", "w") or die("Cannot open file for cache");
+								 fwrite($the_file_html, $allTweets);
+								 fclose($the_file_html);
+
 								 ?>
 						  
 						     </div>
 						 </div>
 						 <!-- end: FOLLOWER LIST BOX -->
 					 </div>
-					<div class="col-md-4">
+					<div class="col-md-4" style="margin-top:100px;">
+							<h4>Download all your tweets in 'json' format</h4>
+							<a class="btn btn-default" id = "downloadTweets" href="files/<?php echo $_SESSION['screen_name'].".json"; ?>" download="<?php echo $_SESSION['screen_name']."Tweets.json"; ?>">Download Tweets</a>	
 					</div>
 										
 
@@ -181,9 +202,6 @@ include('functions.php');
 		<script src="lib/js/bootstrap-hover-dropdown.min.js"></script>
 		<script type='text/javascript' src='script.js'></script>
 		<!-- end: MAIN JAVASCRIPTS -->
-		<!-- start: JAVASCRIPTS REQUIRED FOR THIS PAGE ONLY -->
-		
-		<!-- end: JAVASCRIPTS REQUIRED FOR THIS PAGE ONLY -->
 
 </body>
 
